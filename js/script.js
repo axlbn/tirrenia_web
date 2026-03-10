@@ -492,7 +492,7 @@
     );
     setHtml(
       '.site-footer .footer-grid > div:nth-child(2) p:nth-of-type(3)',
-      `${t('footerEmail')}: <a href="mailto:tacchella.affitii@hotmail.com">tacchella.affitii@hotmail.com</a>`
+      `${t('footerEmail')}: <a href="mailto:tacchella.affitti@hotmail.com">tacchella.affitti@hotmail.com</a>`
     );
     setText('.site-footer .footer-grid > div:nth-child(3) h3', t('footerLinks'));
     setText('.site-footer .footer-grid > div:nth-child(3) a', t('footerAirbnb'));
@@ -760,7 +760,7 @@
         t('mailThanks')
       ].join('\n');
 
-      const mailtoUrl = `mailto:tacchella.affitii@hotmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      const mailtoUrl = `mailto:tacchella.affitti@hotmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
       window.location.href = mailtoUrl;
 
       if (bookingStatus) {
