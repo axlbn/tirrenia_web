@@ -27,6 +27,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr@4.6.13/dist/flatpickr.min.css">
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
@@ -223,9 +224,15 @@
       <div class="container">
         <p class="section-kicker">Disponibilita</p>
         <h2>Calendario disponibilita alloggio</h2>
-        <p>Consulta i periodi non disponibili. Il calendario e in sola lettura e non modificabile dagli utenti.</p>
-        <div class="calendar-wrap">
-          <iframe src="https://calendar.google.com/calendar/embed?src=6efaq2hvatvf6iv758g8q8h42qn9om5a%40import.calendar.google.com&ctz=Europe%2FRome" title="Calendario disponibilita Casa sul Mare" loading="lazy"></iframe>
+        <p>Le date occupate non sono selezionabili nel form di prenotazione.</p>
+        <div class="availability-box">
+          <div id="availability-calendar" class="availability-calendar" aria-label="Calendario disponibilita"></div>
+          <div class="availability-legend" aria-label="Legenda disponibilita">
+            <span class="legend-item"><span class="legend-dot available"></span>Disponibile</span>
+            <span class="legend-item"><span class="legend-dot unavailable"></span>Non disponibile</span>
+          </div>
+          <p class="availability-note">Le disponibilita vengono sincronizzate dal calendario Airbnb.</p>
+          <p class="availability-error" id="availability-error" aria-live="polite"></p>
         </div>
       </div>
     </section>
@@ -304,11 +311,11 @@
             <div class="form-row">
               <div>
                 <label for="checkin">Check-in</label>
-                <input id="checkin" name="checkin" type="date" autocomplete="off" required>
+                <input id="checkin" name="checkin" type="text" autocomplete="off" required>
               </div>
               <div>
                 <label for="checkout">Check-out</label>
-                <input id="checkout" name="checkout" type="date" autocomplete="off" required>
+                <input id="checkout" name="checkout" type="text" autocomplete="off" required>
               </div>
             </div>
 
@@ -377,6 +384,9 @@
     <p class="lightbox-caption"></p>
   </div>
 
+  <script src="https://unpkg.com/ical.js/dist/ical.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr@4.6.13/dist/flatpickr.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr@4.6.13/dist/l10n/it.js"></script>
   <script src="js/script.js"></script>
 </body>
 </html>
