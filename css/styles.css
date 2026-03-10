@@ -207,6 +207,39 @@ p {
   text-align: center;
 }
 
+.lang-switcher {
+  margin-top: 0.35rem;
+}
+
+.lang-buttons {
+  display: flex;
+  gap: 0.35rem;
+  padding: 0.2rem 0.15rem;
+}
+
+.lang-btn {
+  border: 1px solid #c6d9e5;
+  background: #f7fbfd;
+  color: #1c475b;
+  border-radius: 999px;
+  padding: 0.3rem 0.7rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.lang-btn:hover,
+.lang-btn:focus-visible {
+  background: #e8f3f8;
+}
+
+.lang-btn.active {
+  background: var(--ocean-600);
+  color: #fff;
+  border-color: var(--ocean-600);
+}
+
 .hero {
   position: relative;
   min-height: 74vh;
@@ -844,6 +877,10 @@ p {
   }
 
   .nav-links li + li {
+    margin-top: 0;
+  }
+
+  .lang-switcher {
     margin-top: 0;
   }
 
