@@ -690,6 +690,41 @@
   if (bookingForm) {
     const animaliSelect = document.getElementById('animali');
     const numeroAnimaliInput = document.getElementById('numero-animali');
+    const checkinInput = document.getElementById('checkin');
+    const checkoutInput = document.getElementById('checkout');
+
+    const parseIsoDate = (value) => {
+      if (!value) return null;
+      const [year, month, day] = value.split('-').map(Number);
+      if (!year || !month || !day) return null;
+      const parsed = new Date(year, month - 1, day);
+      return Number.isNaN(parsed.getTime()) ? null : parsed;
+    };
+
+    const toIsoDate = (date) => {
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, '0');
+      const day = String(date.getDate()).padStart(2, '0');
+      return `${year}-${month}-${day}`;
+    };
+
+    const syncDateFields = () => {
+      if (!checkinInput || !checkoutInput) return;
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+
+      checkinInput.min = toIsoDate(today);
+      const checkinDate = parseIsoDate(checkinInput.value);
+      const minCheckoutDate = checkinDate
+        ? new Date(checkinDate.getFullYear(), checkinDate.getMonth(), checkinDate.getDate() + 1)
+        : today;
+      checkoutInput.min = toIsoDate(minCheckoutDate);
+
+      const checkoutDate = parseIsoDate(checkoutInput.value);
+      if (checkinDate && checkoutDate && checkoutDate <= checkinDate) {
+        checkoutInput.value = '';
+      }
+    };
 
     const syncAnimaliFields = () => {
       if (!animaliSelect || !numeroAnimaliInput) return;
@@ -699,6 +734,10 @@
       if (hasPets && Number(numeroAnimaliInput.value) < 1) numeroAnimaliInput.value = '1';
       if (!hasPets) numeroAnimaliInput.value = '0';
     };
+
+    syncDateFields();
+    checkinInput?.addEventListener('change', syncDateFields);
+    checkoutInput?.addEventListener('change', syncDateFields);
 
     syncAnimaliFields();
     animaliSelect?.addEventListener('change', syncAnimaliFields);
@@ -722,9 +761,9 @@
       const messaggio = String(formData.get('messaggio') || '').trim();
 
       if (checkin && checkout) {
-        const checkinDate = new Date(checkin);
-        const checkoutDate = new Date(checkout);
-        if (checkoutDate <= checkinDate) {
+        const checkinDate = parseIsoDate(checkin);
+        const checkoutDate = parseIsoDate(checkout);
+        if (checkinDate && checkoutDate && checkoutDate <= checkinDate) {
           if (bookingStatus) {
             bookingStatus.textContent = t('statusCheckoutAfter');
           }
