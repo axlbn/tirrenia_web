@@ -101,6 +101,8 @@
       contactsKicker: 'Contatti',
       contactsTitle: 'Parla direttamente con noi',
       contactCardTitles: ["Per chi chiama dall'estero", "Per chi chiama dall'Italia", 'Email'],
+      whatsappButtonLabel: 'Scrivici su WhatsApp',
+      whatsappMessage: 'Ciao, vorrei prenotare',
       requestKicker: 'Richiesta via email',
       requestTitle: 'Invia una richiesta di prenotazione',
       requestDesc: 'Compila i dati e apriremo automaticamente la tua email con il messaggio gia preparato.',
@@ -245,6 +247,8 @@
       contactsKicker: 'Contacts',
       contactsTitle: 'Get in touch directly',
       contactCardTitles: ['For international callers', 'For callers from Italy', 'Email'],
+      whatsappButtonLabel: 'Message us on WhatsApp',
+      whatsappMessage: 'Hello, I would like to book',
       requestKicker: 'Email request',
       requestTitle: 'Send a booking request',
       requestDesc: 'Fill in your details and we will open your email app with a prefilled message.',
@@ -321,6 +325,17 @@
   const setAllHtml = (selector, values, root = document) => {
     root.querySelectorAll(selector).forEach((el, i) => {
       if (values[i] !== undefined) el.innerHTML = values[i];
+    });
+  };
+
+  const updateWhatsappLinks = () => {
+    const whatsappUrl = `https://wa.me/393318327424?text=${encodeURIComponent(t('whatsappMessage'))}`;
+    document.querySelectorAll('[data-whatsapp-link]').forEach((link) => {
+      link.setAttribute('href', whatsappUrl);
+    });
+    document.querySelectorAll('[data-whatsapp-label]').forEach((element) => {
+      element.textContent = t('whatsappButtonLabel');
+      element.setAttribute('aria-label', t('whatsappButtonLabel'));
     });
   };
 
@@ -496,6 +511,7 @@
     );
     setText('.site-footer .footer-grid > div:nth-child(3) h3', t('footerLinks'));
     setText('.site-footer .footer-grid > div:nth-child(3) a', t('footerAirbnb'));
+    updateWhatsappLinks();
 
     const lightbox = document.getElementById('lightbox');
     if (lightbox) lightbox.setAttribute('aria-label', t('lightboxDialog'));
